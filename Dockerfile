@@ -8,10 +8,9 @@ RUN apt-get update -qqy \
     && apt-get install -qqy --no-install-recommends \
         bash curl ca-certificates git \
     && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
-    && apt remove --purge --auto-remove -qqy --allow-remove-essential curl bash git \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=ko /go/bin/ko /usr/bin/
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-entrypoint.sh /
 
-ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/bin/sh", "/docker-entrypoint.sh" ]

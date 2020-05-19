@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -z "$GOOGLE_APPLICATION_CREDENTIALS" ]
 then
