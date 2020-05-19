@@ -1,15 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-if [ ! -z "$GOOGLE_APPLICATION_CREDENTIALS" ]
+if [ ! -z "$GOOGLE_APPLICATION_CREDENTIALS" ] && [ -f "$GOOGLE_APPLICATION_CREDENTIALS" ]
 then
-    gcloud auth activate-service-account --key-file="${GOOGLE_APPLICATION_CREDENTIALS}"
-
-    if [ ! -z "$GCLOUD_CLUSTER" ] && [ ! -z "$GCLOUD_ZONE" ] && [ ! -z "$GCLOUD_PROJECT" ]
-    then
-        gcloud container clusters get-credentials ${GCLOUD_CLUSTER} --zone ${GCLOUD_ZONE} --project ${GCLOUD_PROJECT}
-    fi
+    gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+    if [ ! -z "CLOUDSDK_CONTAINER_CLUSTER"]
+    gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER
 else
-    echo "Not found GCP Credentials"
+    echo "GCP Credentials not found"
 fi
 
 exec "$@"
