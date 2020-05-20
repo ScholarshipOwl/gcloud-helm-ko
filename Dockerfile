@@ -9,8 +9,10 @@ RUN apt-get update -qqy \
         bash curl ca-certificates git \
     && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
     && rm -rf /var/lib/apt/lists/*
+
 COPY --from=ko /go/bin/ko /usr/bin/
 
 COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 
-ENTRYPOINT [ "/bin/sh", "/docker-entrypoint.sh" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
