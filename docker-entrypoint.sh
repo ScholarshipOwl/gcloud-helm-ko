@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Workaround for GitLab ENTRYPOINT double execution (issue: 1380)
 [ -f /tmp/gitlab-runner.lock ] && exit || >/tmp/gitlab-runner.lock
@@ -11,13 +11,14 @@ then
     then
         FILENAME=$(tempfile).json
         printenv GOOGLE_APPLICATION_CREDENTIALS > "$FILENAME"
-        GOOGLE_APPLICATION_CREDENTIALS="$FILENAME"
+        export GOOGLE_APPLICATION_CREDENTIALS="$FILENAME"
     fi
     gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
     
     if [ ! -z "CLOUDSDK_CONTAINER_CLUSTER" ]
     then
         gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER
+        docker-credential-gcr configure-docker
     fi
 else
     echo "GCP Credentials not found"
