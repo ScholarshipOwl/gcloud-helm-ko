@@ -6,6 +6,7 @@
 # If we have a GOOGLE_APPLICATION_CREDENTIALS file defined - activate it
 if [ ! -z "$GOOGLE_APPLICATION_CREDENTIALS" ]
 then
+    # If the variable isn't a file path, but the actual contents of the file - drop it into a temporary file
     if [ ! -f "$GOOGLE_APPLICATION_CREDENTIALS" ]
     then
         FILENAME=$(tempfile).json
