@@ -7,7 +7,7 @@ then
     if [ ! -z "CLOUDSDK_CONTAINER_CLUSTER"]
     then
         gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER
-    if
+    fi
 else
     echo "GCP Credentials not found"
 fi
