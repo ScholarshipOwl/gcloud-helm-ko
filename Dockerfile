@@ -18,8 +18,10 @@ RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/rel
     | tar xz --to-stdout ./docker-credential-gcr > /usr/local/bin/docker-credential-gcr \
     && chmod +x /usr/local/bin/docker-credential-gcr
 
-ADD https://github.com/roboll/helmfile/releases/download/${HELMFILE_VERSION}/helmfile_linux_amd64 /bin/helmfile
-RUN chmod +x /bin/helmfile
+# Install helmfile and required helm diff plugin
+RUN curl -fsSL https://github.com/roboll/helmfile/releases/download/${HELMFILE_VERSION}/helmfile_linux_amd64 --output /bin/helmfile \
+    && chmod +x /bin/helmfile \
+    && helm plugin install https://github.com/databus23/helm-diff --version master
 
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
