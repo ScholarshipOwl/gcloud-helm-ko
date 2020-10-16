@@ -15,7 +15,7 @@ then
     fi
     gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
     
-    if [ ! -z "CLOUDSDK_CONTAINER_CLUSTER" ]
+    if [ ! -z "$CLOUDSDK_CONTAINER_CLUSTER" ]
     then
         gcloud container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER
         docker-credential-gcr configure-docker
