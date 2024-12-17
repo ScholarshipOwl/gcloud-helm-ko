@@ -20,6 +20,13 @@ RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/rel
     | tar xz --to-stdout ./docker-credential-gcr > /usr/local/bin/docker-credential-gcr \
     && chmod +x /usr/local/bin/docker-credential-gcr
 
+# Install gcrane to copy images between Artifact registry repositories
+RUN curl -L https://github.com/google/go-containerregistry/releases/latest/download/go-containerregistry_Linux_x86_64.tar.gz \
+    -o go-containerregistry.tar.gz \
+    && tar -zxvf go-containerregistry.tar.gz \
+    && chmod +x gcrane \
+    && mv gcrane /usr/local/bin/
+
 # Install helmfile and required helm diff plugin
 RUN curl -fsSL https://github.com/helmfile/helmfile/releases/download/v${HELMFILE_VERSION}/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
     --output /bin/helmfile_${HELMFILE_VERSION}_linux_amd64.tar.gz \
