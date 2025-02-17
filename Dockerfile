@@ -6,7 +6,7 @@ ARG HELMFILE_VERSION=0.156.0
 WORKDIR /usr/src/
 RUN apt-get update -qqy \
     && apt-get install -qqy --no-install-recommends \
-        bash curl ca-certificates git wget \
+        bash curl ca-certificates git wget jq\
     && wget https://dl.google.com/go/go1.21.0.linux-amd64.tar.gz \
     && tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
     && rm -rf go1.21.0.linux-amd64.tar.gz \
